@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="css/styles.css"/> 
+    <link rel="stylesheet" href="css/bootstrap.css"/> 
+    <meta charset=utf-8 />
+    <title>Super Top Friends</title>
+    <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div id="fb-root"></div>  
+
+    <div id="view_entry" class="container"></div>
+
+    <script id="landing_view_template" type="text/template">
+      <div id="landing_row" class="row">
+          <div>
+          <h1>Super Top Friends</h1>
+          <a id="login_btn" class="btn btn-large btn-primary" href="#friends">Log in with Facebook</a>
+        </div>
+      </div>
+    </script>
+
+    <script id="friends_view_template" type="text/template">
+      <div id="friends_container">
+          <div class="row">
+            <span class="choice offset3 span5">
+              <ul class="choice">
+                <li><h2>1</h2></li>
+                <li><h2>2</h2></li>
+                <li><h2>3</h2></li>
+                <li><h2>4</h2></li>
+                <li><h2>5</h2></li>
+              </ul>
+            </span>
+          </div>
+          <div class="row">
+            <span class="span3">
+              &nbsp;
+              <button id="publish_btn" class="btn btn-large btn-primary">Publish on Facebook</button>
+            </span>
+            <span class="choice span5">
+              <ul id="winners" class="choice">
+                <% _.each(winners, function(v,k){ %>
+                  <li id="<%=k%>"><img src="<%=v.img%>"></li>
+                  <% }); %>
+              </ul>
+            </span>
+          </div>
+          <div id="friend_row" class="row">
+              <% _.each( _.first( _.rest(friends,from), offset), function(friend){ %> 
+                <div class="friend">
+                  <span class="span1"><img src="//graph.facebook.com/<%=friend.id%>/picture"></span>
+                  <% firstName = friend.name.split(' ')[0] %>
+                  <span class="name span2"><h2><%=firstName%></h2></span>
+                  <span class="choice span5">
+                    <ul id="<%=friend.id%>" class="choice">
+                      <% _.each(winners, function(v,k){ %>
+                        <li><input type="checkbox" value="<%=k%>" data-id=<%=friend.id%> data-firstname="<%=firstName%>" <% if (v.id == friend.id) { %>checked<% } %>  ></li>
+                        <% }); %>
+                    </ul>
+                  </span>
+                </div>
+                <% }); %>
+          </div>
+          <div class="row">
+            <span class="offset4 span2">
+              <button id="prev" class="btn btn-large">Prev</button>
+              <button id="next" class="btn btn-large">Next</button>
+            </div>  
+          </div>
+        </div>
+    </script>
+
+    <script src="//connect.facebook.net/en_US/all.js"></script>
+    <script src="js/vendor/jquery-1.7.1.min.js"></script>
+    <script src="js/vendor/underscore.js"></script>
+    <script src="js/vendor/backbone.js"></script>
+    <script src="js/models/winners.js"></script>
+    <script src="js/models/friend.js"></script>
+    <script src="js/collections/friends.js"></script>
+    <script src="js/views/landing.js"></script> 
+    <script src="js/views/friends.js"></script> 
+    <script src="js/app.js"></script> 
+    <script>
+      /* App start. */
+      $(function(){
+        window.app = new App();
+        Backbone.history.start({root:'/supertopfriends'});
+      });
+    </script>  
+  </body>
+</html>
+
