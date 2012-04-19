@@ -10,11 +10,16 @@ $(function(){
     }
     , initialize: function(){
       console.log('router:initialize');
-      /* Views. */
+      /* Models. */
+      this.winnersModel = new WinnersModel();
+      /* Collections.*/
       this.friendsCollection = new FriendsCollection();
-      this.landingView  = new LandingView({ collection: this.friendsCollection });
+      /* Views. */
+      this.landingView  = new LandingView({ 
+          collection: this.friendsCollection 
+      });
       this.friendsView  = new FriendsView({ 
-          model     : new WinnersModel()
+          model     : this.winnersModel
         , collection: this.friendsCollection 
       });
       /* Event binding. */

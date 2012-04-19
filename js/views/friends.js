@@ -5,8 +5,8 @@ window.FriendsView = Backbone.View.extend({
     _.bindAll(this, 'render');
     this.template = _.template( $('#friends_view_template').html() );
     /* Event bindings. */
+    this.model.bind('change',     this.render);
     this.collection.bind('reset', this.render);
-    this.model.bind('change',         this.render);
   } 
   , events : {
       'click input[type=checkbox]'  : 'clickChoice'
@@ -15,7 +15,7 @@ window.FriendsView = Backbone.View.extend({
     , 'click #next'                 : 'clickNext'
   },
   render : function(){
-    console.log('FriendsView:render',this.model.full);
+    console.log('FriendsView:render');
     this.$el.html( this.template({
         winners:  this.model.toJSON()
       , friends:  this.collection.toJSON()
@@ -47,9 +47,8 @@ window.FriendsView = Backbone.View.extend({
       caption:      'My best friends are: '+friendsName,
       description:  'Oh yeah!'
     };
-    console.log(params);
-    FB.ui(params, function(res){
-      console.log(res);
+    FB.ui(params, function(res){ 
+      //console.log(res);
     });
     return false;
   }

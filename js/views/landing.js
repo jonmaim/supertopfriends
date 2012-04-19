@@ -2,6 +2,7 @@ window.LandingView = Backbone.View.extend({
     el  : '#view_entry'
   , initialize  : function(){
     console.log('LandingView:initialize');
+    this.template = _.template( $('#landing_view_template').html() );
     FB.init({
         appId      : '301452643259358'
       , status     : true
@@ -9,12 +10,11 @@ window.LandingView = Backbone.View.extend({
       , xfbml      : true
       , oauth      : true
     });
-    this.template = _.template( $('#landing_view_template').html() );
   } 
   , events : {
     'click #login_btn'  : 'clickLoginBtn' 
-  },
-  render : function(){
+  }
+  , render : function(){
     console.log('LandingView:render');
     this.$el.html( this.template() );
     return this;

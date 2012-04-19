@@ -1,5 +1,8 @@
-window.Friend = Backbone.Model.extend({
+window.FriendModel = Backbone.Model.extend({
   initialize: function(){
-    console.log('Friend:initialize');           
+    console.log('FriendModel:initialize');           
   } 
 });
+
+
+
